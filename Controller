@@ -1,0 +1,23 @@
+public class StudentWorkerController : Controller
+{
+    public ActionResult Index()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public ActionResult CalculateSalary(StudentWorkerModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            double salary = model.WeeklySalary();
+            ViewBag.Name = model.Name;
+            ViewBag.Salary = salary;
+        }
+        else
+        {
+            ViewBag.Error = "Invalid input. Please check the values and try again.";
+        }
+        return View("Index");
+    }
+}
