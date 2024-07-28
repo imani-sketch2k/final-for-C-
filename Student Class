@@ -1,11 +1,19 @@
-public class Student
+namespace FinalMuganza.Models
 {
-    public string Name { get; set; }
-    public string Id { get; set; }
-
-    public Student(string name, string id)
+    public class Student
     {
-        Name = name;
-        Id = id;
+        public string Name { get; set; }
+        public string Id { get; set; }
+
+        public Student(string name, string id)
+        {
+            Name = name;
+            Id = id;
+        }
+
+        public override string ToString()
+        {
+            return $"Student: {Name}, ID: {Id}";
+        }
     }
 }
