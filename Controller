@@ -1,11 +1,29 @@
-public class StudentWorkerController : Controller
+using Microsoft.AspNetCore.Mvc;
+using FinalMuganza.Models;
+
+namespace FinalMuganza.Controllers
 {
-    // GET: StudentWorker
-    public ActionResult Index()
+    public class StudentWorkerController : Controller
     {
-        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 10, 5);
-        ViewBag.Name = studentWorker.Name;
-        ViewBag.WeeklySalary = studentWorker.WeeklySalary();
-        return View();
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CalculateSalary(StudentWorkerModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                double salary = model.WeeklySalary();
+                ViewBag.Name = model.Name;
+                ViewBag.Salary = salary;
+            }
+            else
+            {
+                ViewBag.Error = "Invalid input. Please check the values and try again.";
+            }
+            return View("Index");
+        }
     }
 }
