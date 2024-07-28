@@ -1,0 +1,23 @@
+
+public class StudentWorkerModel : Student
+{
+    public double HourlyPay { get; set; }
+    public double HoursWorked { get; set; }
+
+    public StudentWorkerModel(string name, string id, double hourlyPay, double hoursWorked)
+        : base(name, id)
+    {
+        HourlyPay = hourlyPay;
+        HoursWorked = hoursWorked;
+    }
+
+    public double WeeklySalary()
+    {
+        if (HoursWorked < 1 || HoursWorked > 15 || HourlyPay < 7.25 || HourlyPay > 14.75)
+        {
+            return 0;
+        }
+        return HourlyPay * HoursWorked;
+    }
+}
+
