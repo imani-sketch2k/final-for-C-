@@ -1,51 +1,22 @@
-@model YourNamespace.Models.StudentWorkerModel
+@model MvcApp.Models.StudentWorker
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Student Worker Salary Calculator</title>
-</head>
-<body>
-    <div>
-        <h2>Calculate Weekly Salary</h2>
-        @using (Html.BeginForm("CalculateSalary", "StudentWorker", FormMethod.Post))
-        {
-            <div>
-                @Html.LabelFor(m => m.Name)
-                @Html.TextBoxFor(m => m.Name)
-                @Html.ValidationMessageFor(m => m.Name)
-            </div>
-            <div>
-                @Html.LabelFor(m => m.Id)
-                @Html.TextBoxFor(m => m.Id)
-                @Html.ValidationMessageFor(m => m.Id)
-            </div>
-            <div>
-                @Html.LabelFor(m => m.HourlyPay)
-                @Html.TextBoxFor(m => m.HourlyPay)
-                @Html.ValidationMessageFor(m => m.HourlyPay)
-            </div>
-            <div>
-                @Html.LabelFor(m => m.HoursWorked)
-                @Html.TextBoxFor(m => m.HoursWorked)
-                @Html.ValidationMessageFor(m => m.HoursWorked)
-            </div>
-            <div>
-                <input type="submit" value="Calculate" />
-                <input type="reset" value="Clear" />
-            </div>
-        }
+@{
+    ViewBag.Title = "Student Worker Details";
+}
 
-        <div>
-            @if (ViewBag.Salary != null)
-            {
-                <p>@ViewBag.Name's weekly salary is @ViewBag.Salary</p>
-            }
-            @if (ViewBag.Error != null)
-            {
-                <p style="color:red;">@ViewBag.Error</p>
-            }
-        </div>
-    </div>
-</body>
-</html>
+<h2>Student Worker Details</h2>
+
+<table>
+    <tr>
+        <td>Name:</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>ID:</td>
+        <td>@Model.ID</td>
+    </tr>
+    <tr>
+        <td>Weekly Salary:</td>
+        <td>@Model.WeeklySalary()</td>
+    </tr>
+</table>
