@@ -1,38 +1,74 @@
-[TestClass]
-public class StudentWorkerModelTests
+
+using FinalMuganza.Models;
+
+namespace FinalMuganza.Tests
 {
-    [TestMethod]
-    public void TestWeeklySalaryInvalidHoursWorkedTooLow()
+    [TestFixture]
+    public class StudentWorkerModelTests
     {
-        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 10, 0);
-        Assert.AreEqual(0, studentWorker.WeeklySalary());
-    }
+        [Test]
+        public void TestInvalidHoursWorkedTooLow()
+        {
+            // Arrange
+            var studentWorker = new StudentWorkerModel("John Doe", "12345", 10, 0);
 
-    [TestMethod]
-    public void TestWeeklySalaryInvalidHoursWorkedTooHigh()
-    {
-        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 10, 16);
-        Assert.AreEqual(0, studentWorker.WeeklySalary());
-    }
+            // Act
+            double salary = studentWorker.WeeklySalary();
 
-    [TestMethod]
-    public void TestWeeklySalaryInvalidHourlyPayTooLow()
-    {
-        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 6.25m, 5);
-        Assert.AreEqual(0, studentWorker.WeeklySalary());
-    }
+            // Assert
+            Assert.That(salary, Is.EqualTo(0), "Salary should be zero for invalid hours worked.");
+        }
 
-    [TestMethod]
-    public void TestWeeklySalaryInvalidHourlyPayTooHigh()
-    {
-        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 15, 5);
-        Assert.AreEqual(0, studentWorker.WeeklySalary());
-    }
+        [Test]
+        public void TestInvalidHoursWorkedTooHigh()
+        {
+            // Arrange
+            var studentWorker = new StudentWorkerModel("John Doe", "12345", 10, 20);
 
-    [TestMethod]
-    public void TestWeeklySalaryValid()
-    {
-        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 10, 5);
-        Assert.AreEqual(50, studentWorker.WeeklySalary());
+            // Act
+            double salary = studentWorker.WeeklySalary();
+
+            // Assert
+            Assert.That(salary, Is.EqualTo(0), "Salary should be zero for invalid hours worked.");
+        }
+
+        [Test]
+        public void TestInvalidHourlySalaryTooLow()
+        {
+            // Arrange
+            var studentWorker = new StudentWorkerModel("John Doe", "12345", 5, 10);
+
+            // Act
+            double salary = studentWorker.WeeklySalary();
+
+            // Assert
+            Assert.That(salary, Is.EqualTo(0), "Salary should be zero for invalid hourly pay.");
+        }
+
+        [Test]
+        public void TestInvalidHourlySalaryTooHigh()
+        {
+            // Arrange
+            var studentWorker = new StudentWorkerModel("John Doe", "12345", 20, 10);
+
+            // Act
+            double salary = studentWorker.WeeklySalary();
+
+            // Assert
+            Assert.That(salary, Is.EqualTo(0), "Salary should be zero for invalid hourly pay.");
+        }
+
+        [Test]
+        public void TestValidInput()
+        {
+            // Arrange
+            var studentWorker = new StudentWorkerModel("John Doe", "12345", 10, 10);
+
+            // Act
+            double salary = studentWorker.WeeklySalary();
+
+            // Assert
+            Assert.That(salary, Is.EqualTo(100), "Salary should be correct for valid input.");
+        }
     }
 }
