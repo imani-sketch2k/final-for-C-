@@ -1,0 +1,38 @@
+[TestClass]
+public class StudentWorkerModelTests
+{
+    [TestMethod]
+    public void TestWeeklySalaryInvalidHoursWorkedTooLow()
+    {
+        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 10, 0);
+        Assert.AreEqual(0, studentWorker.WeeklySalary());
+    }
+
+    [TestMethod]
+    public void TestWeeklySalaryInvalidHoursWorkedTooHigh()
+    {
+        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 10, 16);
+        Assert.AreEqual(0, studentWorker.WeeklySalary());
+    }
+
+    [TestMethod]
+    public void TestWeeklySalaryInvalidHourlyPayTooLow()
+    {
+        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 6.25m, 5);
+        Assert.AreEqual(0, studentWorker.WeeklySalary());
+    }
+
+    [TestMethod]
+    public void TestWeeklySalaryInvalidHourlyPayTooHigh()
+    {
+        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 15, 5);
+        Assert.AreEqual(0, studentWorker.WeeklySalary());
+    }
+
+    [TestMethod]
+    public void TestWeeklySalaryValid()
+    {
+        StudentWorkerModel studentWorker = new StudentWorkerModel("John Doe", 1, 10, 5);
+        Assert.AreEqual(50, studentWorker.WeeklySalary());
+    }
+}
