@@ -1,29 +1,35 @@
-using Microsoft.AspNetCore.Mvc;
-using FinalMuganza.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace FinalMuganza.Controllers
+namespace FinalMuganza.Models
 {
-    public class StudentWorkerController : Controller
+    public class StudentWorkerModel : Student
     {
-        public ActionResult Index()
+        [Range(7.25, 14.75, ErrorMessage = "Hourly pay must be between $7.25 and $14.75.")]
+        public double HourlyPay { get; set; }
+
+        [Range(1, 15, ErrorMessage = "Hours worked must be between 1 and 15.")]
+        public double HoursWorked { get; set; }
+
+        public StudentWorkerModel(string name, string id, double hourlyPay, double hoursWorked)
+            : base(name, id)
         {
-            return View();
+            HourlyPay = hourlyPay;
+            HoursWorked = hoursWorked;
         }
 
-        [HttpPost]
-        public ActionResult CalculateSalary(StudentWorkerModel model)
+        ///  Parameterized constructor 
+        public double WeeklySalary()
         {
-            if (ModelState.IsValid)
+            if (HoursWorked < 1 || HoursWorked > 15 || HourlyPay < 7.25 || HourlyPay > 14.75)
             {
-                double salary = model.WeeklySalary();
-                ViewBag.Name = model.Name;
-                ViewBag.Salary = salary;
+                return 0;
             }
-            else
-            {
-                ViewBag.Error = "Invalid input. Please check the values and try again.";
-            }
-            return View("Index");
+            return HourlyPay * HoursWorked;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + $", Hourly Pay: {HourlyPay}, Hours Worked: {HoursWorked}, Weekly Salary: {WeeklySalary()}";
         }
     }
 }
