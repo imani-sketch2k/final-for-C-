@@ -1,36 +1,30 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace FinalMuganza.Models
 {
     public class StudentWorkerModel : Student
     {
-        [Range(7.25, 14.75, ErrorMessage = "Hourly pay must be between $7.25 and $14.75.")]
         public double HourlyPay { get; set; }
+        public int HoursWorked { get; set; }
 
-        [Range(1, 15, ErrorMessage = "Hours worked must be between 1 and 15.")]
-        public double HoursWorked { get; set; }
+        // Parameterless constructor
+        public StudentWorkerModel() :base() 
+        {
+        }
 
-        public StudentWorkerModel(string name, string id, double hourlyPay, double hoursWorked)
+        // Parameterized constructor
+        public StudentWorkerModel(string name, string id, double hourlyPay, int hoursWorked)
             : base(name, id)
         {
             HourlyPay = hourlyPay;
             HoursWorked = hoursWorked;
         }
 
-        ///  Parameterized constructor 
         public double WeeklySalary()
         {
-            if (HoursWorked < 1 || HoursWorked > 15 || HourlyPay < 7.25 || HourlyPay > 14.75)
+            if (HourlyPay < 7.25 || HourlyPay > 14.75 || HoursWorked < 1 || HoursWorked > 15)
             {
                 return 0;
             }
             return HourlyPay * HoursWorked;
         }
-
-        public override string ToString()
-        {
-            return base.ToString() + $", Hourly Pay: {HourlyPay}, Hours Worked: {HoursWorked}, Weekly Salary: {WeeklySalary()}";
-        }
     }
 }
-
