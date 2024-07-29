@@ -1,19 +1,30 @@
 namespace FinalMuganza.Models
 {
-    public class Student
+    public class StudentWorkerModel : Student
     {
-        public string Name { get; set; }
-        public string Id { get; set; }
+        public double HourlyPay { get; set; }
+        public int HoursWorked { get; set; }
 
-        public Student(string name, string id)
+        // Parameterless constructor
+        public StudentWorkerModel() :base() 
         {
-            Name = name;
-            Id = id;
         }
 
-        public override string ToString()
+        // Parameterized constructor
+        public StudentWorkerModel(string name, string id, double hourlyPay, int hoursWorked)
+            : base(name, id)
         {
-            return $"Student: {Name}, ID: {Id}";
+            HourlyPay = hourlyPay;
+            HoursWorked = hoursWorked;
+        }
+
+        public double WeeklySalary()
+        {
+            if (HourlyPay < 7.25 || HourlyPay > 14.75 || HoursWorked < 1 || HoursWorked > 15)
+            {
+                return 0;
+            }
+            return HourlyPay * HoursWorked;
         }
     }
 }
